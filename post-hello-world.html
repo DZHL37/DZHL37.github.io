@@ -1,11 +1,11 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>晨曦微露 | DZHL-blog</title>
     <meta name="description" content="欢迎来到我的博客！这是我在博客上发的第一篇文章。">
-    <link rel="stylesheet" href="assets.css?v=2">
+    <link rel="stylesheet" href="assets.css">
 </head>
 <body>
     <!-- 动态背景 -->
@@ -26,7 +26,8 @@
             <a href="index.html" class="nav-link"><span>首页</span></a>
             <a href="archives.html" class="nav-link"><span>归档</span></a>
             <a href="about.html" class="nav-link"><span>关于</span></a>
-        <button class="mobile-toggle" onclick="var l=this.nextElementSibling;l.classList.toggle(\"open\");">☰</button></nav>
+        </div>
+    </nav>
 
     <div class="container">
         <article class="article-page">
@@ -71,7 +72,7 @@
                 </a>
                 <div class="article-nav">
                     <a href="post-my-new-post.html" class="btn btn-glass">
-                        ← 上一篇
+                        下一篇 →
                     </a>
                 </div>
             </footer>
@@ -97,7 +98,7 @@
 
     <!-- 页面过渡面板 -->
     <div class="page-transition" id="pageTransition">
-
+        <div class="panel"></div>
         <div class="panel" style="transition-delay: 0.04s;"></div>
         <div class="panel" style="transition-delay: 0.08s;"></div>
         <div class="panel" style="transition-delay: 0.12s;"></div>

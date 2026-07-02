@@ -1,4 +1,4 @@
-﻿/* ============================================
+/* ============================================
    DZHL-blog · 液态玻璃设计系统
    全站共享样式
    ============================================ */
@@ -963,9 +963,37 @@ body {
     text-decoration: none;
 }
 
-/* ===== 移动端导航按钮 ===== */
-.mobile-toggle{display:none;width:36px;height:36px;border-radius:10px;background:rgba(255,255,255,0.2);border:1px solid rgba(255,255,255,0.3);cursor:pointer;align-items:center;justify-content:center;font-size:18px;color:var(--text-secondary);margin-left:auto;transition:all 0.3s}
-.mobile-toggle:hover{background:rgba(255,255,255,0.4)}
+/* ===== 页面过渡动画 ===== */
+.page-transition {
+    position: fixed;
+    inset: 0;
+    z-index: 9999;
+    pointer-events: none;
+    display: flex;
+}
+
+.page-transition .panel {
+    flex: 1;
+    background: linear-gradient(135deg, #6c5ce7, #a29bfe);
+    transform: scaleY(0);
+    transform-origin: bottom;
+    transition: transform 0.5s var(--ease-spring);
+}
+
+/* 消除面板之间的子像素缝隙 */
+.page-transition .panel + .panel {
+    margin-left: -1px;
+}
+
+.page-transition.active .panel {
+    transform: scaleY(1);
+    transform-origin: top;
+}
+
+.page-transition.exit .panel {
+    transform: scaleY(0);
+    transform-origin: bottom;
+}
 
 /* 页面加载入场 */
 .page-enter {
@@ -984,22 +1012,7 @@ body {
         padding: 8px 12px;
     }
 
-    .mobile-toggle { display: flex; }
-    .nav-links {
-        display: none;
-        position: absolute;
-        top: calc(100% + 8px);
-        left: 0; right: 0;
-        background: rgba(255,255,255,0.85);
-        backdrop-filter: blur(20px);
-        border-radius: var(--radius-lg);
-        border: 1px solid var(--glass-border);
-        padding: 8px;
-        flex-direction: column;
-        box-shadow: var(--glass-shadow);
-    }
-    .nav-links.open { display: flex; }
-    .nav-link { padding: 12px 16px; }
+    .nav-links { display: none; }
 
     .hero-title {
         font-size: 48px;

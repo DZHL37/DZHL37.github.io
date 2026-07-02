@@ -49,31 +49,40 @@
     }
 
     // ===== 导航高亮 =====
-    function initNavHighlight() {
-        var sections = document.querySelectorAll('section[id]');
-        if (!sections.length) return;
+    // 静态多页站点，导航由各页面 HTML 的 active class 控制
+    // 此函数适用于 SPA 锚点导航场景，当前站点无需启用
 
-        var navLinks = document.querySelectorAll('.nav-link');
-        window.addEventListener('scroll', function () {
-            var current = '';
-            sections.forEach(function (section) {
-                var top = section.offsetTop - 120;
-                if (window.scrollY >= top) {
-                    current = section.getAttribute('id');
-                }
-            });
-            navLinks.forEach(function (link) {
-                link.classList.remove('active');
-                if (link.getAttribute('href') === '#' + current) {
-                    link.classList.add('active');
-                }
-            });
+    // ===== 页面过渡（跳转） =====
+    function initPageTransition() {
+        var transitionEl = document.getElementById('pageTransition');
+
+        // 拦截内部链接
+        document.addEventListener('click', function (e) {
+            var link = e.target.closest('a');
+            if (!link) return;
+
+            var href = link.getAttribute('href');
+            if (!href) return;
+
+            // 只处理内部页面跳转
+            if (href.startsWith('http') || href.startsWith('mailto:') || href.startsWith('#')) return;
+            if (link.target === '_blank') return;
+            if (e.ctrlKey || e.metaKey || e.shiftKey) return;
+
+            e.preventDefault();
+            triggerTransition(href);
         });
-    }
 
-    // ===== 页面跳转（简单的直接跳转） =====
-    function initPageNav() {
-        // 不需要额外处理，a标签默认行为即可
+        function triggerTransition(href) {
+            if (!transitionEl) {
+                window.location.href = href;
+                return;
+            }
+            transitionEl.classList.add('active');
+            setTimeout(function () {
+                window.location.href = href;
+            }, 450);
+        }
     }
 
     // ===== 平滑滚动（锚点） =====
@@ -91,10 +100,29 @@
         });
     }
 
-    // ===== 背景光斑跟随鼠标 =====
-    function initParallax() {
+    // ===== 导航栏鼠标视差 =====
+    function initNavParallax() {
+        var navBar = document.querySelector('.nav-bar');
+        if (!navBar) return;
+
+        var ticking = false;
+        document.addEventListener('mousemove', function (e) {
+            if (ticking) return;
+            ticking = true;
+            requestAnimationFrame(function () {
+                var x = (e.clientX / window.innerWidth - 0.5) * 8;
+                var y = (e.clientY / window.innerHeight - 0.5) * 4;
+                navBar.style.transform = 'translateX(calc(-50% + ' + x + 'px)) translateY(' + y + 'px)';
+                ticking = false;
+            });
+        });
+    }
+
+    // ===== 背景光斑视差 =====
+    function initOrbParallax() {
         var orbs = document.querySelectorAll('.orb');
         if (!orbs.length) return;
+
         var ticking = false;
         document.addEventListener('mousemove', function (e) {
             if (ticking) return;
@@ -116,10 +144,11 @@
         pageEnter();
         initScrollReveal();
         initLiquidGlow();
-        initNavHighlight();
-        initPageNav();
+        // initNavHighlight(); // 静态站点，不启用滚动导航高亮
+        initPageTransition();
         initSmoothScroll();
-        initParallax();
+        initNavParallax();
+        initOrbParallax();
     }
 
     if (document.readyState === 'loading') {
