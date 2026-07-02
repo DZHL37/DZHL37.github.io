@@ -1,0 +1,39 @@
+# IDE
+.idea/
+*.iml
+.vscode/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+# OS
+.DS_Store
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+
+# Env & secrets
+.env
+.env.local
+.env.*.local
+*.key
+*.pem
+*.cert
+config.local.*
+
+# Python
+__pycache__/
+*.py[cod]
+*.class
+*.so
+.Python
+env/
+venv/
+.venv/
+
+# Logs & temp
+*.log
+*.tmp
+*.temp
