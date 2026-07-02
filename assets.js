@@ -6,6 +6,10 @@
 (function () {
     'use strict';
 
+    // ===== 移动端检测 =====
+    var isTouchDevice = ('ontouchstart' in window) || (navigator.maxTouchPoints > 0);
+    if (isTouchDevice) document.documentElement.classList.add('touch');
+
     // ===== 页面加载入场 =====
     function pageEnter() {
         document.body.classList.add('page-enter');
@@ -35,8 +39,9 @@
         });
     }
 
-    // ===== 液态光晕跟随鼠标 =====
+    // ===== 液态光晕跟随鼠标（仅桌面） =====
     function initLiquidGlow() {
+        if (isTouchDevice) return;
         document.querySelectorAll('.post-card').forEach(function (card) {
             var glow = card.querySelector('.liquid-glow');
             if (!glow) return;
@@ -100,8 +105,9 @@
         });
     }
 
-    // ===== 导航栏鼠标视差 =====
+    // ===== 导航栏鼠标视差（仅桌面） =====
     function initNavParallax() {
+        if (isTouchDevice) return;
         var navBar = document.querySelector('.nav-bar');
         if (!navBar) return;
 
@@ -118,8 +124,9 @@
         });
     }
 
-    // ===== 背景光斑视差 =====
+    // ===== 背景光斑视差（仅桌面） =====
     function initOrbParallax() {
+        if (isTouchDevice) return;
         var orbs = document.querySelectorAll('.orb');
         if (!orbs.length) return;
 

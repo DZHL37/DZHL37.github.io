@@ -1044,6 +1044,41 @@ body {
     .about-section {
         padding: 28px 24px;
     }
+
+    /* ===== 移动端性能优化 ===== */
+
+    /* ① 减轻玻璃模糊（最耗性能的项目） */
+    .glass {
+        backdrop-filter: blur(10px) saturate(120%);
+        -webkit-backdrop-filter: blur(10px) saturate(120%);
+    }
+
+    /* ② 关闭背景固定，滚动时不触发全屏重绘 */
+    body {
+        background-attachment: scroll;
+    }
+
+    /* ③ 减少光晕强度 + 停用浮动动画（改用静止样式） */
+    .orb {
+        filter: blur(30px);
+        opacity: 0.15;
+        animation: none;
+    }
+
+    /* ④ 过渡面板留 3 片即可，减少 GPU 负担 */
+    .page-transition .panel:nth-child(n+4) {
+        display: none;
+    }
+
+    /* ⑤ 隐藏液态光晕（手机上无 hover） */
+    .liquid-glow {
+        display: none !important;
+    }
+
+    /* ⑥ 关闭导航栏视差动画 */
+    .nav-bar {
+        transition: none !important;
+    }
 }
 
 /* ===== 滚动条 ===== */
